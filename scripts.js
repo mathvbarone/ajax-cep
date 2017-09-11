@@ -11,8 +11,10 @@
     }
 
 
-  
-  const validateEntry = function(){
+  //FUNÇÃO RESPONSÁVEL POR VALIDAR O TIPO DE CARACTERE QUE O INPUT ACEITARÁ
+  const validateEntry = function(e){
+    this.value = this.value.replace(/\D/g,"");
+    this.value = this.value.replace(/^(\d{5})(\d)/,"$1-$2");
   }  
 
   const getAddress = () => {
