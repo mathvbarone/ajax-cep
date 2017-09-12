@@ -52,7 +52,14 @@
       .catch(getAddressError);
   };
 
-  const getAddressSuccess = () => {};
+
+  const getAddressSuccess = address => {
+          
+    Object.keys(address).map(key => {
+        let value = address[key];        
+        document.querySelectorAll(`#${key}`).value = valor;
+     }); 
+  };
 
   const getAddressError = () => {
     console.log("Fail!");
