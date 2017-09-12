@@ -56,9 +56,13 @@
   const getAddressSuccess = address => {
           
     Object.keys(address).map(key => {
-        let value = address[key];        
-        document.querySelectorAll(`#${key}`).value = valor;
+        let value = address[key];    
+        let element =  document.querySelectorAll(`#${key}`);  
+        element.forEach(() => {
+          element[0].value = value;
+        });
      }); 
+
   };
 
   const getAddressError = () => {
