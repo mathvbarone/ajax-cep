@@ -52,23 +52,28 @@
       .catch(getAddressError);
   };
 
-
+  // SE A REQUISIÇÃO RETORNAR, ITERA POR TODOS OS ELEMENTOS, E ATRIBUI O KEY DE CADA ELEMENTO AO VALUE DOS INPUTS
   const getAddressSuccess = address => {
           
     Object.keys(address).map(key => {
-        let value = address[key];    
-        let element =  document.querySelectorAll(`#${key}`);  
-        element.forEach(() => {
-          element[0].value = value;
+        let addressValue = address[key];    
+        let elements =  document.querySelectorAll(`#${key}`); 
+        console.log(key, addressValue); 
+
+        elements.forEach(() => {
+          elements[0].value = addressValue;
         });
      }); 
 
   };
 
+//SE A REQUISIÇÃO NÃO RETORNAR, OU HOUVER ALGUM ERRO
   const getAddressError = () => {
-    console.log("Fail!");
+    console.error("O servidor respondeu com um erro!");
   };
 
+
+  // FUNÇÃO DE INICIAÇÃO
   const init = (function() {
     cep.addEventListener("input", validateEntry);
     cep.addEventListener("focusout", validadeLength);
