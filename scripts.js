@@ -1,4 +1,6 @@
 (() => {
+
+  // VARIÁVEIS DOS CAMPOS DE INTERAÇÃO DO USUÁRIO
   const ui = {
     inputs: {
       cep: document.querySelector("#cep"),
@@ -10,13 +12,13 @@
     fields: document.querySelectorAll("input")
   };
 
-  //FUNÇÃO RESPONSÁVEL POR VALIDAR O TIPO DE CARACTERE QUE O INPUT ACEITARÁ
+  //VALIDAR O TIPO DE CARACTERE QUE O INPUT ACEITARÁ
   const validateEntry = function(e) {
     this.value = this.value.replace(/\D/g, "");
     this.value = this.value.replace(/^(\d{5})(\d)/, "$1-$2");
   };
 
-  //FUNÇÃO QUE VALIDA O NÚMERO DE CARACTERES A SER DIGITADO, E LIMPA OS CAMPOS CASO O INPUT ESTEJA VAZIO
+  //VALIDA O NÚMERO DE CARACTERES A SER DIGITADO, E LIMPA OS CAMPOS CASO O INPUT ESTEJA VAZIO
   const validadeLength = () => {
     const cep = ui.inputs.cep;
 
@@ -31,8 +33,7 @@
       : "";
   };
 
-  // FUNÇÃO QUE FAZ A REQUISIÇÃO PARA A API, E RETORNA O JSON COM AS INFORMAÇÕES DE CEP
-
+  // REQUISIÇÃO PARA A API, E RETORNA O JSON COM AS INFORMAÇÕES DE CEP
   const getAddress = () => {
     let cepValue = cep.value;
 
@@ -54,28 +55,27 @@
 
   // SE A REQUISIÇÃO RETORNAR, ITERA POR TODOS OS ELEMENTOS, E ATRIBUI O KEY DE CADA ELEMENTO AO VALUE DOS INPUTS
   const getAddressSuccess = address => {
-          
     Object.keys(address).map(key => {
-        let addressValue = address[key];    
-        let elements =  document.querySelectorAll(`#${key}`); 
-        console.log(key, addressValue); 
+      const addressValue = address[key];
+      const inputsList = document.querySelectorAll(`#${key}`);
 
-        elements.forEach(() => {
-          elements[0].value = addressValue;
-        });
-     }); 
+      // console.log(key, addressValue);
 
+      inputsList.forEach(() => {
+        inputsList[0].value = addressValue;
+      });
+    });
   };
 
-//SE A REQUISIÇÃO NÃO RETORNAR, OU HOUVER ALGUM ERRO
+  //SE A REQUISIÇÃO NÃO RETORNAR, OU HOUVER ALGUM ERRO
   const getAddressError = () => {
     console.error("O servidor respondeu com um erro!");
   };
 
-
-  // FUNÇÃO DE INICIAÇÃO
+  // FUNÇÃO DE INICIALIZAÇÃO
   const init = (function() {
     cep.addEventListener("input", validateEntry);
     cep.addEventListener("focusout", validadeLength);
   })();
+
 })();
